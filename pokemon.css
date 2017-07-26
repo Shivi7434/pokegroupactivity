@@ -1,0 +1,15 @@
+#wrapper {
+  background-color: olive;
+  width: 900px;
+  display: inline-block;
+}
+#container {
+  width: 180px;
+  height: 350px;
+  border: 10px solid black;
+  background-color: white;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 45px;
+  margin-top: 75px;
+}
