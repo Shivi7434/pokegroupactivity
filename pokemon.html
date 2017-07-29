@@ -7,36 +7,51 @@
   <link rel="stylesheet" href="pokemon.css">
   <script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
   <script type="text/javascript">
-    $(document).ready(function(){
-      $('button').click(function(){
-        for (var i = 1; i < 152; i++){
-        $('#wrapper').append(`<img src='http://pokeapi.co/media/img/${i}.png'>`);
+    $(document).ready(function() {
+      $('button').click(function() {
+        for (var i = 1; i < 152; i++) {
+          $('#wrapper').append(`<img id='${i}' src='http://pokeapi.co/media/img/${i}.png'>`);
         }
       });
-      $('img').click(function(){
 
+      $(document).on('click', 'img', function() {
+        var characterId = ($(this).attr('id'));
         $.ajax({
-          url:"http://pokeapi.co/api/v1/pokemon/" ;
-          method:GET;
-          dataType:JSON;
-          success:function(x){
-            console.log(x){
-              $(#container).html
+          url: `http://pokeapi.co/api/v1/pokemon/${characterId}`,
+          method: "GET",
+          dataType: "JSON",
+          success: function(response) {
+            $('#container').html(`<h1> ${response.name} </h1>`);
+            $('#container').append(`<img id='${characterId}' src='http://pokeapi.co/media/img/${characterId}.png'>`);
+            for (var i = 0; i < response.type.length; i++) {
+              $(#container).append(`"<h2> <ul> <li>"  ${response.type[i]}  "</li> </ul> </h2>"`);
             }
-
+            //
+            $('#container').append(`<h3> ${response.height} </h3>`);
+            $('#container').append(`<h4> ${response.weight} </h4>`);
+            $('#container').html(html);
           }
-        })
-
-        })
+        });
+      });
     });
+    console.log(response.name, response.image, response.type, response.height, response.width);
   </script>
 </head>
 
 <body>
   <div id="wrapper">
-  <button type="button" name="button">Click Here</button>
+    <button type="button" name="button">Click Here</button>
   </div>
   <div id="container">
+    <h1>Name of poke</h1>
+    <h2>Type</h2>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <h3>height</h3>
+    <h4>weight</h4>
   </div>
 </body>
 
